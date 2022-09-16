@@ -2,3 +2,6 @@
 *.dev
 __pycache__/
 *.pyc
+static/
+.DS_Store
+code/
