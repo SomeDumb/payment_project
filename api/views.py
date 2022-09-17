@@ -43,7 +43,6 @@ class BuyApiView(APIView):
                 cancel_url=domain_url + f'/order/{order_id}',
                 mode='payment',
                 line_items=items,
-                customer_email='test+location_US@example.com',
             )
 
             return Response({'sessionId': checkout_session['id']})
@@ -54,7 +53,6 @@ class BuyApiView(APIView):
                 cancel_url=domain_url + f'order/{order_id}',
                 mode='payment',
                 line_items=items,
-                customer_email='test+location_US@example.com',
             )
             return Response({'sessionId': checkout_session['id']})
         except Exception as e:
