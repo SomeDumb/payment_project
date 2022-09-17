@@ -27,6 +27,8 @@
                 Купить
             </button>
             <script type="text/javascript">
+            (function() {
+                try {
                 var stripe = Stripe('{{key}}');
                 var buyButton = document.getElementById('buy-button');
                 buyButton.addEventListener('click', function() {
@@ -34,7 +36,33 @@
                   fetch('/buy/{{id}}', {method: 'GET'})
                   .then(response => response.json())
                   .then(session => stripe.redirectToCheckout({ sessionId: session.sessionId }))
+                  .then(function (result) {
+                    if (result.error) {
+                      // Error scenario 1
+                      // If `redirectToCheckout` fails due to a browser or network
+                      // error, display the localized error message to your customer.
+                      displayError(result.error.message);
+                    }
+                  }).catch(function (error) {
+                    if (error) {
+                      // Error scenario 2
+                      // If the promise throws an error
+                      displayError("Произошла ошибка."
+                      + " Извините за временные неполадки. \n" + error);
+                    }
+                  });
                 });
+              } catch (error) {
+                // Error scenario 3
+                // If there is no internet connection at all
+                displayError("Проблема при подключении к платежному провадеру"
+                + " Проверьте подключение к интернету.");
+              }
+            })();
+            function displayError(errorMessage) {
+                var displayError = document.getElementById('main');
+                displayError.textContent = errorMessage;
+              }
             </script>
           </ol>
     </div>

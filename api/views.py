@@ -20,7 +20,9 @@ def get_prices_stripe(queryset):
         return items
 
 class BuyApiView(APIView):
-    
+    """
+    View for getting session with up-to-date prices by given order id.
+    """
     def get(self, request, *args, **kwargs):
         try:
             order_id = kwargs['id']
