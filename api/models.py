@@ -105,7 +105,7 @@ class Item(models.Model):
 
 class Price(models.Model):
     price = models.BigIntegerField(verbose_name=_("Цена"))
-    currency = models.CharField(max_length=3, verbose_name=_("Волюта"))
+    currency = models.CharField(max_length=3, verbose_name=_("Валюта"))
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     
     def __str__(self):
