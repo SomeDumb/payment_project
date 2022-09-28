@@ -104,7 +104,7 @@ class Item(models.Model):
         verbose_name_plural = _("Предметы")
 
 class Price(models.Model):
-    price = models.BigIntegerField(verbose_name=_("Цена"))
+    price = models.PositiveIntegerField(verbose_name=_("Цена"))
     currency = models.CharField(max_length=3, verbose_name=_("Валюта"))
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     
